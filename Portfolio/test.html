@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aryan Kumar | AIML Student Portfolio</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Times New Roman', serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* NAVBAR */
+        header {
+            background: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 15px 10px;
+            overflow-x: auto;
+        }
+
+        nav a {
+            text-decoration: none;
+            font-weight: bold;
+            color: #555;
+            white-space: nowrap;
+            transition: 0.3s;
+            padding: 5px 0;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #4a6cf7;
+        }
+
+        nav a.active-link {
+            color: #4a6cf7;
+        }
+
+        nav a.active-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #4a6cf7;
+            border-radius: 2px;
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 80px 20px;
+            max-width: 1100px;
+            margin: auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            display: none;
+        }
+
+        section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            color: #4a6cf7;
+            margin-bottom: 40px;
+            text-align: center;
+            font-size: 2.2rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: #4a6cf7;
+            border-radius: 2px;
+        }
+
+        /* HOME */
+        .profile {
+            text-align: center;
+            padding-top: 40px;
+        }
+
+        .profile img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 6px solid #4a6cf7;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        .profile h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .profile p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: #4a6cf7;
+            font-size: 28px;
+            margin: 0 15px;
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px) scale(1.1);
+            color: #2f49c4;
+        }
+
+        /* ABOUT */
+        #about p {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            padding: 0 20px;
+        }
+
+        /* SKILLS */
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .skills span {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #e3e9ff;
+            padding: 20px 25px;
+            border-radius: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #4a6cf7;
+            min-width: 120px;
+            height: 120px;
+            box-shadow: 0 4px 10px rgba(74, 108, 247, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .skills span:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(74, 108, 247, 0.2);
+        }
+
+        .skills span i {
+            margin-bottom: 12px;
+            font-size: 32px;
+        }
+
+        /* CERTIFICATES */
+        .cert-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            justify-items: center;
+            align-items: start;
+        }
+
+        .cert-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 350px;
+            width: 100%;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .cert-card img {
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            object-fit: contain;
+            background: #f9f9f9;
+            padding: 10px;
+        }
+
+        .cert-card h3 {
+            margin: 20px 0 10px 0;
+            color: #333;
+            font-size: 1.2rem;
+            flex-grow: 1;
+        }
+
+        .cert-card p {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* PROJECTS */
+        .project-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .project-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 25px;
+            width: 320px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+
+        .project-card h3 {
+            color: #4a6cf7;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            flex-grow: 0;
+        }
+
+        .project-card p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .project-card a {
+            color: #fff;
+            background: #4a6cf7;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s, transform 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .project-card a:hover {
+            background: #2f49c4;
+            transform: translateY(-2px);
+        }
+
+        /* CONTACT */
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        form input, form textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 12px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        form input:focus, form textarea:focus {
+            outline: none;
+            border-color: #4a6cf7;
+            box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.1);
+        }
+
+        form button {
+            width: 100%;
+            padding: 15px;
+            background: #4a6cf7;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: background 0.3s, transform 0.3s;
+            margin-top: 10px;
+        }
+
+        form button:hover {
+            background: #2f49c4;
+            transform: translateY(-2px);
+        }
+
+        /* CHATBOT */
+        .chatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 280px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #4a6cf7, #2f49c4);
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            border-radius: 12px 12px 0 0;
+            font-weight: bold;
+            cursor: pointer;
+            position: relative;
+            font-size: 1.1rem;
+        }
+
+        .toggle-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .chat-body {
+            height: 200px;
+            padding: 15px;
+            overflow-y: auto;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .chat-body p {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
+        .chat-body p strong {
+            color: #4a6cf7;
+        }
+
+        .chat-input {
+            display: flex;
+            border-top: 1px solid #eee;
+            padding: 10px;
+            background: #f9f9f9;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px 0 0 8px;
+            outline: none;
+            font-size: 0.95rem;
+        }
+
+        .chat-input button {
+            padding: 12px 20px;
+            background: #4a6cf7;
+            color: #fff;
+            border: none;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .chat-input button:hover {
+            background: #2f49c4;
+        }
+
+        .chatbot.collapsed .chat-body,
+        .chatbot.collapsed .chat-input {
+            display: none;
+        }
+
+        .chatbot.collapsed {
+            height: auto;
+            border-radius: 12px;
+            width: 200px;
+        }
+
+        .chatbot.collapsed .chat-header {
+            border-radius: 12px;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #ffffff;
+            margin-top: 60px;
+            color: #666;
+            border-top: 1px solid #eee;
+            font-size: 0.95rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav {
+                gap: 15px;
+                padding: 12px 10px;
+                justify-content: flex-start;
+            }
+            
+            nav a {
+                font-size: 0.9rem;
+            }
+            
+            section {
+                padding: 60px 15px;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+                margin-bottom: 30px;
+            }
+            
+            .profile img {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .profile h1 {
+                font-size: 2rem;
+            }
+            
+            .skills {
+                gap: 15px;
+            }
+            
+            .skills span {
+                min-width: 100px;
+                height: 100px;
+                padding: 15px;
+            }
+            
+            .skills span i {
+                font-size: 28px;
+                margin-bottom: 8px;
+            }
+            
+            .cert-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .project-card {
+                width: 100%;
+                max-width: 350px;
+            }
+            
+            .chatbot {
+                width: 250px;
+                right: 15px;
+                bottom: 15px;
+            }
+            
+            .chatbot.collapsed {
+                width: 180px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .skills span {
+                min-width: 85px;
+                height: 85px;
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+            
+            .skills span i {
+                font-size: 24px;
+            }
+            
+            form {
+                padding: 20px;
+            }
+            
+            .chatbot {
+                width: 90%;
+                right: 5%;
+                left: 5%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <nav>
+        <a href="#home" class="active-link">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#certificates">Certificates</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<section id="home" class="profile active">
+    <img src="aryan profile image.jpeg" alt="Aryan Kumar">
+    <h1>Aryan Kumar</h1>
+    <p>B.Tech CSE (AI & ML) | First Year</p>
+
+    <div class="social-links">
+        <a href="https://github.com/AryanKumar128" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/in/aryan-kumar-5a8434383" target="_blank"><i class="fab fa-linkedin"></i></a>
+    </div>
+</section>
+
+<section id="about">
+    <h2>About Me</h2>
+    <p>
+        I am a first-year B.Tech Computer Science student specializing in Artificial Intelligence and Machine Learning. 
+        I am passionate about exploring the potential of Generative AI and building efficient software solutions.
+    </p>
+</section>
+
+<section id="skills">
+    <h2>Skills</h2>
+    <div class="skills">
+        <span><i class="fab fa-html5"></i>HTML</span>
+        <span><i class="fab fa-css3-alt"></i>CSS</span>
+        <span><i class="fab fa-js-square"></i>JavaScript</span>
+        <span><i class="fab fa-python"></i>Python</span>
+        <span><i class="fas fa-c"></i>C Programming</span>
+    </div>
+</section>
+
+<section id="certificates">
+    <h2>Certificates</h2>
+    <div class="cert-container">
+        <div class="cert-card">
+            <img src="aryan gemini.jpeg" alt="Google Gemini Academy Certificate">
+            <h3>Google Gemini Academy - Completion</h3>
+            <p>Completed in December 2025</p>
+        </div>
+        <div class="cert-card">
+            <img src="aryan html,css,js.jpeg" alt="HTML,CSS,JavaScript for Beginners">
+            <h3>IBM Developer Skills Network</h3>
+            <p>HTML, CSS & JavaScript Fundamentals</p>
+        </div>
+        <div class="cert-card">
+            <img src="aryanc certificate.jpeg" alt="Software Foundation Course with C Programming">
+            <h3>IBM Developer Skills Network</h3>
+            <p>Software Foundation with C Programming</p>
+        </div>
+    </div>
+</section>
+
+<section id="projects">
+    <h2>Projects</h2>
+    <div class="project-container">
+        
+        <div class="project-card">
+            <h3>Grade Book  Class Statistics</h3>
+            <p>C program for class grade statistics and analysis.</p>
+            <a href="https://github.com/AryanKumar128/Programming-Fundamentals-OF-C/blob/main/miniproject/Aryan_C_miniproject/Grade_book.c" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <h2>Contact Me</h2>
+    <form action="mailto:yourname@gmail.com" method="post" enctype="text/plain">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+    </form>
+</section>
+
+<div class="chatbot collapsed">
+    <div class="chat-header" onclick="toggleChat()">
+        Portfolio Assistant
+        <span class="toggle-icon">+</span>
+    </div>
+    <div class="chat-body" id="chatBody">
+        <p><strong>Bot:</strong> Hi Aryan! How can I help you today?</p>
+    </div>
+    <div class="chat-input">
+        <input type="text" id="userInput" placeholder="Ask about skills, projects..." onkeypress="if(event.key === 'Enter') sendMessage()">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 Aryan Kumar | AIML Student Portfolio</p>
+</footer>
+
+<script>
+    // Chatbot functionality
+    function sendMessage(){
+        const input = document.getElementById("userInput");
+        const chat = document.getElementById("chatBody");
+        const text = input.value.toLowerCase();
+
+        if(text.trim() === "") return;
+
+        chat.innerHTML += `<p><strong>You:</strong> ${input.value}</p>`;
+
+        let reply = "I'm not sure about that, but feel free to check the sections above!";
+
+        if(text.includes("hi") || text.includes("hello")) {
+            reply = "Hello! 👋 How can I assist you?";
+        } else if(text.includes("skills")) {
+            reply = "Aryan is skilled in HTML, CSS, JavaScript, Python, and C programming. Check the Skills section for details!";
+        } else if(text.includes("contact")) {
+            reply = "You can use the contact form above or connect via LinkedIn/Github links in the Home section.";
+        } else if(text.includes("gemini") || text.includes("certificate")) {
+            reply = "Aryan completed the Google Gemini Academy in December 2025! See all certificates in the Certificates section.";
+        } else if(text.includes("name")) {
+            reply = "This is Aryan Kumar's professional portfolio. He's a first-year AI & ML student.";
+        } else if(text.includes("project")) {
+            reply = "Aryan has built several projects including a portfolio website, calculator, and grade book system. Check the Projects section!";
+        } else if(text.includes("about")) {
+            reply = "Aryan is a first-year B.Tech CSE (AI & ML) student passionate about Generative AI. See About section for more.";
+        }
+
+        chat.innerHTML += `<p><strong>Bot:</strong> ${reply}</p>`;
+        chat.scrollTop = chat.scrollHeight;
+        input.value = "";
+    }
+
+    // Toggle chatbot expand/collapse
+    function toggleChat() {
+        const chatbot = document.querySelector('.chatbot');
+        const icon = document.querySelector('.toggle-icon');
+        chatbot.classList.toggle('collapsed');
+        icon.textContent = chatbot.classList.contains('collapsed') ? '+' : '-';
+    }
+
+    // Section navigation with fade animation
+    const navLinks = document.querySelectorAll("nav a");
+    const sections = document.querySelectorAll("section");
+
+    navLinks.forEach(link => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute("href").substring(1);
+            const targetSection = document.getElementById(targetId);
+
+            // Update nav active-link
+            navLinks.forEach(l => l.classList.remove("active-link"));
+            link.classList.add("active-link");
+
+            // Fade out current section
+            const current = document.querySelector("section.active");
+            if(current && current !== targetSection){
+                current.style.opacity = 0;
+                current.style.transform = "translateY(20px)";
+
+                setTimeout(() => {
+                    current.classList.remove("active");
+                    // Fade in target section
+                    targetSection.classList.add("active");
+                    setTimeout(() => {
+                        targetSection.style.opacity = 1;
+                        targetSection.style.transform = "translateY(0)";
+                    }, 50);
+                }, 300);
+            } else {
+                // First load or same section clicked
+                targetSection.classList.add("active");
+                targetSection.style.opacity = 1;
+                targetSection.style.transform = "translateY(0)";
+            }
+        });
+    });
+
+    // Initialize first section
+    document.addEventListener('DOMContentLoaded', function() {
+        const homeSection = document.getElementById('home');
+        if (homeSection) {
+            homeSection.style.opacity = 1;
+            homeSection.style.transform = "translateY(0)";
+        }
+    });
+</script>
+
+</body>
+</html>
